@@ -18,6 +18,16 @@ find_package(pluginlib REQUIRED)
 
 pkg_check_modules(SERIAL libserial)
 
+add_executable(simple_publisher src/simple_publisher.cpp)
+ament_target_dependencies(simple_publisher rclcpp std_msgs)
+
+add_executable(simple_subscriber src/simple_subscriber.cpp)
+ament_target_dependencies(simple_subscriber rclcpp std_msgs)
+
+add_executable(simple_parameter src/simple_parameter.cpp)
+ament_target_dependencies(simple_parameter rclcpp rcl_interfaces)
+
+
 
 add_executable(simple_serial_receiver src/simple_serial_receiver.cpp)
 ament_target_dependencies(simple_serial_receiver rclcpp std_msgs)
@@ -33,6 +43,20 @@ target_include_directories(simple_serial_transmitter PUBLIC
 target_link_libraries(simple_serial_transmitter
  "${SERIAL_LDFLAGS}")
 
+add_executable(simple_qos_publisher src/simple_qos_publisher.cpp)
+ament_target_dependencies(simple_qos_publisher rclcpp std_msgs)
+
+add_executable(simple_qos_subscriber src/simple_qos_subscriber.cpp)
+ament_target_dependencies(simple_qos_subscriber rclcpp std_msgs)
+
+
+install(TARGETS
+  simple_publisher
+  simple_subscriber
+  simple_qos_publisher
+  simple_qos_subscriber
+  DESTINATION lib/${PROJECT_NAME}
+)
 
  install(TARGETS
  simple_serial_receiver
